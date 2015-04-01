@@ -19,14 +19,14 @@
  *
  * @see uninstall_plugin()
  *
- * @package    mod_newmodule
- * @copyright  2015 Your Name <your@email.adress>
+ * @package    mod_remar
+ * @copyright  2015 Rener Baffa da Silva <renerbaffa@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 /**
  * Custom uninstallation procedure
  */
-function xmldb_newmodule_uninstall() {
+function xmldb_remar_uninstall() {
     return true;
 }

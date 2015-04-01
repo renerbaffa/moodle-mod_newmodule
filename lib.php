@@ -15,17 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Library of interface functions and constants for module newmodule
+ * Library of interface functions and constants for module remar
  *
  * All the core Moodle functions, neeeded to allow the module to work
  * integrated in Moodle should be placed here.
  *
- * All the newmodule specific functions, needed to implement all the module
+ * All the remar specific functions, needed to implement all the module
  * logic, should go to locallib.php. This will help to save some memory when
  * Moodle is performing actions across all modules.
  *
- * @package    mod_newmodule
- * @copyright  2015 Your Name
+ * @package    mod_remar
+ * @copyright  2015 Rener Baffa da Silva <renerbaffa@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -34,7 +34,7 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Example constant, you probably want to remove this :-)
  */
-define('NEWMODULE_ULTIMATE_ANSWER', 42);
+define('REMAR_ULTIMATE_ANSWER', 42);
 
 /* Moodle core API */
 
@@ -46,7 +46,7 @@ define('NEWMODULE_ULTIMATE_ANSWER', 42);
  * @param string $feature FEATURE_xx constant for requested feature
  * @return mixed true if the feature is supported, null if unknown
  */
-function newmodule_supports($feature) {
+function remar_supports($feature) {
 
     switch($feature) {
         case FEATURE_MOD_INTRO:
@@ -63,59 +63,59 @@ function newmodule_supports($feature) {
 }
 
 /**
- * Saves a new instance of the newmodule into the database
+ * Saves a new instance of the remar into the database
  *
  * Given an object containing all the necessary data,
  * (defined by the form in mod_form.php) this function
  * will create a new instance and return the id number
  * of the new instance.
  *
- * @param stdClass $newmodule Submitted data from the form in mod_form.php
- * @param mod_newmodule_mod_form $mform The form instance itself (if needed)
- * @return int The id of the newly inserted newmodule record
+ * @param stdClass $remar Submitted data from the form in mod_form.php
+ * @param mod_remar_mod_form $mform The form instance itself (if needed)
+ * @return int The id of the newly inserted remar record
  */
-function newmodule_add_instance(stdClass $newmodule, mod_newmodule_mod_form $mform = null) {
+function remar_add_instance(stdClass $remar, mod_remar_mod_form $mform = null) {
     global $DB;
 
-    $newmodule->timecreated = time();
+    $remar->timecreated = time();
 
     // You may have to add extra stuff in here.
 
-    $newmodule->id = $DB->insert_record('newmodule', $newmodule);
+    $remar->id = $DB->insert_record('remar', $remar);
 
-    newmodule_grade_item_update($newmodule);
+    remar_grade_item_update($remar);
 
-    return $newmodule->id;
+    return $remar->id;
 }
 
 /**
- * Updates an instance of the newmodule in the database
+ * Updates an instance of the remar in the database
  *
  * Given an object containing all the necessary data,
  * (defined by the form in mod_form.php) this function
  * will update an existing instance with new data.
  *
- * @param stdClass $newmodule An object from the form in mod_form.php
- * @param mod_newmodule_mod_form $mform The form instance itself (if needed)
+ * @param stdClass $remar An object from the form in mod_form.php
+ * @param mod_remar_mod_form $mform The form instance itself (if needed)
  * @return boolean Success/Fail
  */
-function newmodule_update_instance(stdClass $newmodule, mod_newmodule_mod_form $mform = null) {
+function remar_update_instance(stdClass $remar, mod_remar_mod_form $mform = null) {
     global $DB;
 
-    $newmodule->timemodified = time();
-    $newmodule->id = $newmodule->instance;
+    $remar->timemodified = time();
+    $remar->id = $remar->instance;
 
     // You may have to add extra stuff in here.
 
-    $result = $DB->update_record('newmodule', $newmodule);
+    $result = $DB->update_record('remar', $remar);
 
-    newmodule_grade_item_update($newmodule);
+    remar_grade_item_update($remar);
 
     return $result;
 }
 
 /**
- * Removes an instance of the newmodule from the database
+ * Removes an instance of the remar from the database
  *
  * Given an ID of an instance of this module,
  * this function will permanently delete the instance
@@ -124,18 +124,18 @@ function newmodule_update_instance(stdClass $newmodule, mod_newmodule_mod_form $
  * @param int $id Id of the module instance
  * @return boolean Success/Failure
  */
-function newmodule_delete_instance($id) {
+function remar_delete_instance($id) {
     global $DB;
 
-    if (! $newmodule = $DB->get_record('newmodule', array('id' => $id))) {
+    if (! $remar = $DB->get_record('remar', array('id' => $id))) {
         return false;
     }
 
     // Delete any dependent records here.
 
-    $DB->delete_records('newmodule', array('id' => $newmodule->id));
+    $DB->delete_records('remar', array('id' => $remar->id));
 
-    newmodule_grade_item_delete($newmodule);
+    remar_grade_item_delete($remar);
 
     return true;
 }
@@ -151,10 +151,10 @@ function newmodule_delete_instance($id) {
  * @param stdClass $course The course record
  * @param stdClass $user The user record
  * @param cm_info|stdClass $mod The course module info object or record
- * @param stdClass $newmodule The newmodule instance record
+ * @param stdClass $remar The remar instance record
  * @return stdClass|null
  */
-function newmodule_user_outline($course, $user, $mod, $newmodule) {
+function remar_user_outline($course, $user, $mod, $remar) {
 
     $return = new stdClass();
     $return->time = 0;
@@ -171,21 +171,21 @@ function newmodule_user_outline($course, $user, $mod, $newmodule) {
  * @param stdClass $course the current course record
  * @param stdClass $user the record of the user we are generating report for
  * @param cm_info $mod course module info
- * @param stdClass $newmodule the module instance record
+ * @param stdClass $remar the module instance record
  */
-function newmodule_user_complete($course, $user, $mod, $newmodule) {
+function remar_user_complete($course, $user, $mod, $remar) {
 }
 
 /**
  * Given a course and a time, this module should find recent activity
- * that has occurred in newmodule activities and print it out.
+ * that has occurred in remar activities and print it out.
  *
  * @param stdClass $course The course record
  * @param bool $viewfullnames Should we display full names
  * @param int $timestart Print activity since this timestamp
  * @return boolean True if anything was printed, otherwise false
  */
-function newmodule_print_recent_activity($course, $viewfullnames, $timestart) {
+function remar_print_recent_activity($course, $viewfullnames, $timestart) {
     return false;
 }
 
@@ -194,7 +194,7 @@ function newmodule_print_recent_activity($course, $viewfullnames, $timestart) {
  *
  * This callback function is supposed to populate the passed array with
  * custom activity records. These records are then rendered into HTML via
- * {@link newmodule_print_recent_mod_activity()}.
+ * {@link remar_print_recent_mod_activity()}.
  *
  * Returns void, it adds items into $activities and increases $index.
  *
@@ -206,11 +206,11 @@ function newmodule_print_recent_activity($course, $viewfullnames, $timestart) {
  * @param int $userid check for a particular user's activity only, defaults to 0 (all users)
  * @param int $groupid check for a particular group's activity only, defaults to 0 (all groups)
  */
-function newmodule_get_recent_mod_activity(&$activities, &$index, $timestart, $courseid, $cmid, $userid=0, $groupid=0) {
+function remar_get_recent_mod_activity(&$activities, &$index, $timestart, $courseid, $cmid, $userid=0, $groupid=0) {
 }
 
 /**
- * Prints single activity item prepared by {@link newmodule_get_recent_mod_activity()}
+ * Prints single activity item prepared by {@link remar_get_recent_mod_activity()}
  *
  * @param stdClass $activity activity record with added 'cmid' property
  * @param int $courseid the id of the course we produce the report for
@@ -218,7 +218,7 @@ function newmodule_get_recent_mod_activity(&$activities, &$index, $timestart, $c
  * @param array $modnames as returned by {@link get_module_types_names()}
  * @param bool $viewfullnames display users' full names
  */
-function newmodule_print_recent_mod_activity($activity, $courseid, $detail, $modnames, $viewfullnames) {
+function remar_print_recent_mod_activity($activity, $courseid, $detail, $modnames, $viewfullnames) {
 }
 
 /**
@@ -231,7 +231,7 @@ function newmodule_print_recent_mod_activity($activity, $courseid, $detail, $mod
  *
  * @return boolean
  */
-function newmodule_cron () {
+function remar_cron () {
     return true;
 }
 
@@ -243,26 +243,26 @@ function newmodule_cron () {
  *
  * @return array
  */
-function newmodule_get_extra_capabilities() {
+function remar_get_extra_capabilities() {
     return array();
 }
 
 /* Gradebook API */
 
 /**
- * Is a given scale used by the instance of newmodule?
+ * Is a given scale used by the instance of remar?
  *
- * This function returns if a scale is being used by one newmodule
+ * This function returns if a scale is being used by one remar
  * if it has support for grading and scales.
  *
- * @param int $newmoduleid ID of an instance of this module
+ * @param int $remarid ID of an instance of this module
  * @param int $scaleid ID of the scale
- * @return bool true if the scale is used by the given newmodule instance
+ * @return bool true if the scale is used by the given remar instance
  */
-function newmodule_scale_used($newmoduleid, $scaleid) {
+function remar_scale_used($remarid, $scaleid) {
     global $DB;
 
-    if ($scaleid and $DB->record_exists('newmodule', array('id' => $newmoduleid, 'grade' => -$scaleid))) {
+    if ($scaleid and $DB->record_exists('remar', array('id' => $remarid, 'grade' => -$scaleid))) {
         return true;
     } else {
         return false;
@@ -270,17 +270,17 @@ function newmodule_scale_used($newmoduleid, $scaleid) {
 }
 
 /**
- * Checks if scale is being used by any instance of newmodule.
+ * Checks if scale is being used by any instance of remar.
  *
  * This is used to find out if scale used anywhere.
  *
  * @param int $scaleid ID of the scale
- * @return boolean true if the scale is used by any newmodule instance
+ * @return boolean true if the scale is used by any remar instance
  */
-function newmodule_scale_used_anywhere($scaleid) {
+function remar_scale_used_anywhere($scaleid) {
     global $DB;
 
-    if ($scaleid and $DB->record_exists('newmodule', array('grade' => -$scaleid))) {
+    if ($scaleid and $DB->record_exists('remar', array('grade' => -$scaleid))) {
         return true;
     } else {
         return false;
@@ -288,29 +288,29 @@ function newmodule_scale_used_anywhere($scaleid) {
 }
 
 /**
- * Creates or updates grade item for the given newmodule instance
+ * Creates or updates grade item for the given remar instance
  *
  * Needed by {@link grade_update_mod_grades()}.
  *
- * @param stdClass $newmodule instance object with extra cmidnumber and modname property
+ * @param stdClass $remar instance object with extra cmidnumber and modname property
  * @param bool $reset reset grades in the gradebook
  * @return void
  */
-function newmodule_grade_item_update(stdClass $newmodule, $reset=false) {
+function remar_grade_item_update(stdClass $remar, $reset=false) {
     global $CFG;
     require_once($CFG->libdir.'/gradelib.php');
 
     $item = array();
-    $item['itemname'] = clean_param($newmodule->name, PARAM_NOTAGS);
+    $item['itemname'] = clean_param($remar->name, PARAM_NOTAGS);
     $item['gradetype'] = GRADE_TYPE_VALUE;
 
-    if ($newmodule->grade > 0) {
+    if ($remar->grade > 0) {
         $item['gradetype'] = GRADE_TYPE_VALUE;
-        $item['grademax']  = $newmodule->grade;
+        $item['grademax']  = $remar->grade;
         $item['grademin']  = 0;
-    } else if ($newmodule->grade < 0) {
+    } else if ($remar->grade < 0) {
         $item['gradetype'] = GRADE_TYPE_SCALE;
-        $item['scaleid']   = -$newmodule->grade;
+        $item['scaleid']   = -$remar->grade;
     } else {
         $item['gradetype'] = GRADE_TYPE_NONE;
     }
@@ -319,40 +319,40 @@ function newmodule_grade_item_update(stdClass $newmodule, $reset=false) {
         $item['reset'] = true;
     }
 
-    grade_update('mod/newmodule', $newmodule->course, 'mod', 'newmodule',
-            $newmodule->id, 0, null, $item);
+    grade_update('mod/remar', $remar->course, 'mod', 'remar',
+            $remar->id, 0, null, $item);
 }
 
 /**
- * Delete grade item for given newmodule instance
+ * Delete grade item for given remar instance
  *
- * @param stdClass $newmodule instance object
+ * @param stdClass $remar instance object
  * @return grade_item
  */
-function newmodule_grade_item_delete($newmodule) {
+function remar_grade_item_delete($remar) {
     global $CFG;
     require_once($CFG->libdir.'/gradelib.php');
 
-    return grade_update('mod/newmodule', $newmodule->course, 'mod', 'newmodule',
-            $newmodule->id, 0, null, array('deleted' => 1));
+    return grade_update('mod/remar', $remar->course, 'mod', 'remar',
+            $remar->id, 0, null, array('deleted' => 1));
 }
 
 /**
- * Update newmodule grades in the gradebook
+ * Update remar grades in the gradebook
  *
  * Needed by {@link grade_update_mod_grades()}.
  *
- * @param stdClass $newmodule instance object with extra cmidnumber and modname property
+ * @param stdClass $remar instance object with extra cmidnumber and modname property
  * @param int $userid update grade of specific user only, 0 means all participants
  */
-function newmodule_update_grades(stdClass $newmodule, $userid = 0) {
+function remar_update_grades(stdClass $remar, $userid = 0) {
     global $CFG, $DB;
     require_once($CFG->libdir.'/gradelib.php');
 
     // Populate array of grade objects indexed by userid.
     $grades = array();
 
-    grade_update('mod/newmodule', $newmodule->course, 'mod', 'newmodule', $newmodule->id, 0, $grades);
+    grade_update('mod/remar', $remar->course, 'mod', 'remar', $remar->id, 0, $grades);
 }
 
 /* File API */
@@ -368,14 +368,14 @@ function newmodule_update_grades(stdClass $newmodule, $userid = 0) {
  * @param stdClass $context
  * @return array of [(string)filearea] => (string)description
  */
-function newmodule_get_file_areas($course, $cm, $context) {
+function remar_get_file_areas($course, $cm, $context) {
     return array();
 }
 
 /**
- * File browsing support for newmodule file areas
+ * File browsing support for remar file areas
  *
- * @package mod_newmodule
+ * @package mod_remar
  * @category files
  *
  * @param file_browser $browser
@@ -389,25 +389,25 @@ function newmodule_get_file_areas($course, $cm, $context) {
  * @param string $filename
  * @return file_info instance or null if not found
  */
-function newmodule_get_file_info($browser, $areas, $course, $cm, $context, $filearea, $itemid, $filepath, $filename) {
+function remar_get_file_info($browser, $areas, $course, $cm, $context, $filearea, $itemid, $filepath, $filename) {
     return null;
 }
 
 /**
- * Serves the files from the newmodule file areas
+ * Serves the files from the remar file areas
  *
- * @package mod_newmodule
+ * @package mod_remar
  * @category files
  *
  * @param stdClass $course the course object
  * @param stdClass $cm the course module object
- * @param stdClass $context the newmodule's context
+ * @param stdClass $context the remar's context
  * @param string $filearea the name of the file area
  * @param array $args extra arguments (itemid, path)
  * @param bool $forcedownload whether or not force download
  * @param array $options additional options affecting the file serving
  */
-function newmodule_pluginfile($course, $cm, $context, $filearea, array $args, $forcedownload, array $options=array()) {
+function remar_pluginfile($course, $cm, $context, $filearea, array $args, $forcedownload, array $options=array()) {
     global $DB, $CFG;
 
     if ($context->contextlevel != CONTEXT_MODULE) {
@@ -422,28 +422,28 @@ function newmodule_pluginfile($course, $cm, $context, $filearea, array $args, $f
 /* Navigation API */
 
 /**
- * Extends the global navigation tree by adding newmodule nodes if there is a relevant content
+ * Extends the global navigation tree by adding remar nodes if there is a relevant content
  *
  * This can be called by an AJAX request so do not rely on $PAGE as it might not be set up properly.
  *
- * @param navigation_node $navref An object representing the navigation tree node of the newmodule module instance
+ * @param navigation_node $navref An object representing the navigation tree node of the remar module instance
  * @param stdClass $course current course record
- * @param stdClass $module current newmodule instance record
+ * @param stdClass $module current remar instance record
  * @param cm_info $cm course module information
  */
-function newmodule_extend_navigation(navigation_node $navref, stdClass $course, stdClass $module, cm_info $cm) {
+function remar_extend_navigation(navigation_node $navref, stdClass $course, stdClass $module, cm_info $cm) {
     // TODO Delete this function and its docblock, or implement it.
 }
 
 /**
- * Extends the settings navigation with the newmodule settings
+ * Extends the settings navigation with the remar settings
  *
- * This function is called when the context for the page is a newmodule module. This is not called by AJAX
+ * This function is called when the context for the page is a remar module. This is not called by AJAX
  * so it is safe to rely on the $PAGE.
  *
  * @param settings_navigation $settingsnav complete settings navigation tree
- * @param navigation_node $newmodulenode newmodule administration node
+ * @param navigation_node $remar remar administration node
  */
-function newmodule_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $newmodulenode=null) {
+function remar_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $remarnode=null) {
     // TODO Delete this function and its docblock, or implement it.
 }

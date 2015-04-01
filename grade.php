@@ -17,9 +17,9 @@
 /**
  * Redirect the user to the appropriate submission related page
  *
- * @package   mod_newmodule
+ * @package   mod_remar
  * @category  grade
- * @copyright 2015 Your Name
+ * @copyright 2015 Rener Baffa da Silva <renerbaffa@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
