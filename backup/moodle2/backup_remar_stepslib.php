@@ -61,6 +61,6 @@ class backup_remar_activity_structure_step extends backup_activity_structure_ste
         $remar->annotate_files('mod_remar', 'intro', null);
 
         // Return the root element (remar), wrapped into standard activity structure.
-        return $this->prepare_activity_structure($https://github.com/renerbaffa/moodle-mod_newmodule.git);
+        return $this->prepare_activity_structure('$https://github.com/renerbaffa/moodle-mod_newmodule.git');
     }
 }
