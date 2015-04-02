@@ -37,3 +37,9 @@ $string['remarname_help'] = 'This is the content of the help tooltip associated 
 $string['remar'] = 'remar';
 $string['pluginadministration'] = 'remar administration';
 $string['pluginname'] = 'remar';
+
+/* For settings.php file */
+$string['game1'] = 'Hangman';
+$string['game1_config'] = 'Hangman configuration';
+$string['game2'] = 'MathJong';
+$string['game2_config'] = 'MathJong configuration';
