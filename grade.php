@@ -24,11 +24,50 @@
  */
 
 require_once(__DIR__ . "../../../config.php");
+require_once($CFG->dirroot.'/mod/remar/lib.php');
+require_once($CFG->libdir.'/gradelib.php');
 
 $id = required_param('id', PARAM_INT);// Course module ID.
-// Item number may be != 0 for activities that allow more than one grade per user.
-$itemnumber = optional_param('itemnumber', 0, PARAM_INT);
 $userid = optional_param('userid', 0, PARAM_INT); // Graded user ID (optional).
+$grade = required_param('questions', PARAM_INT); //User grade
 
-// In the simplest case just redirect to the view page.
-redirect('view.php?id='.$id);
+if ($id) {
+    $cm = get_coursemodule_from_id('remar', $id, 0, false, MUST_EXIST);
+    $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
+    $remar = $DB->get_record('remar', array('id' => $cm->instance), '*', MUST_EXIST);
+} else {
+    error('You must specify a course_module ID or an instance ID');
+}
+
+require_login($course->id, false, $cm);
+
+/*echo 'id: '.$id.'<br /><br /><br />';
+echo 'userid: '.var_dump($USER).'<br /><br /><br />';
+echo 'grade: '.$grade.'<br /><br /><br />';
+echo 'cm: '.var_dump($cm).'<br /><br /><br />';
+echo 'course: '.var_dump($course).'<br /><br /><br />';
+echo 'remar: '.var_dump($remar).'<br /><br /><br /><br /><br /><br /><br /><br />';*/
+
+/*$game = new stdClass();
+$game->name = $remar->name;
+$game->course = $course->id;
+$game->id = $remar->id;
+$game->rawgrade = $grade;
+$game->userid = $userid;*/
+
+$data = new stdClass();
+$data->course = $course->id;
+$data->id = $remar->id;
+$data->rawgrade = $grade;
+$data->name = $remar->name;
+$data->assessed = false;
+
+remar_update_grades($data, $userid, false);
+
+$message = 'Nota inserida';
+redirect('view.php?id='.$id, $message);
+/*echo '<pre>';
+print_r($data);
+echo '</pre>';*/
+
+//echo remar_grade_item_update($game);

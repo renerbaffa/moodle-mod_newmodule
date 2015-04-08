@@ -28,3 +28,10 @@ $string['game1'] = 'Jogo da Forca';
 $string['game1_config'] = 'Configuração do Jogo da Forca';
 $string['game2'] = 'MathJong';
 $string['game2_config'] = 'Configuração do MathJong';
+
+/* for view.php file */
+$string['test_activity_description'] = 'De 10 perguntas, quantas você acertou?';
+$string['test'] = 'teste';
+
+/* For errors */
+$string['forbidden_access'] = 'Acesso direto à esta página é proibido.';

@@ -43,3 +43,10 @@ $string['game1'] = 'Hangman';
 $string['game1_config'] = 'Hangman configuration';
 $string['game2'] = 'MathJong';
 $string['game2_config'] = 'MathJong configuration';
+
+/* for view.php file */
+$string['test_activity_description'] = 'From 10 questions how many did you got?';
+$string['test'] = 'test';
+
+/* For errors */
+$string['forbidden_access'] = 'Direct access to this script is forbidden';

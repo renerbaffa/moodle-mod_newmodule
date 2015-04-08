@@ -296,11 +296,35 @@ function remar_scale_used_anywhere($scaleid) {
  * @param bool $reset reset grades in the gradebook
  * @return void
  */
-function remar_grade_item_update(stdClass $remar, $reset=false) {
+function remar_grade_item_update($remar, $grades=NULL) {
     global $CFG;
-    require_once($CFG->libdir.'/gradelib.php');
+    if (!function_exists('grade_update')) { //workaround for buggy PHP versions
+        require_once($CFG->libdir.'/gradelib.php');
+    }
+    
+    $params = array('itemname'=>$remar->name);
+ 
+    if (!$remar->assessed or $remar->scale == 0) {
+        $params['gradetype'] = GRADE_TYPE_NONE;
+ 
+    } else if ($remar->scale > 0) {
+        $params['gradetype'] = GRADE_TYPE_VALUE;
+        $params['grademax']  = $remar->scale;
+        $params['grademin']  = 0;
+ 
+    } else if ($remar->scale < 0) {
+        $params['gradetype'] = GRADE_TYPE_SCALE;
+        $params['scaleid']   = -$remar->scale;
+    }
+ 
+    if ($grades  === 'reset') {
+        $params['reset'] = true;
+        $grades = NULL;
+    }
+ 
+    return grade_update('mod/remar', $remar->course, 'mod', 'remar', $remar->id, 0, $grades, $params);
 
-    $item = array();
+    /*$item = array();
     $item['itemname'] = clean_param($remar->name, PARAM_NOTAGS);
     $item['gradetype'] = GRADE_TYPE_VALUE;
 
@@ -320,7 +344,7 @@ function remar_grade_item_update(stdClass $remar, $reset=false) {
     }
 
     grade_update('mod/remar', $remar->course, 'mod', 'remar',
-            $remar->id, 0, null, $item);
+            $remar->id, 0, null, $item);*/
 }
 
 /**
@@ -345,14 +369,24 @@ function remar_grade_item_delete($remar) {
  * @param stdClass $remar instance object with extra cmidnumber and modname property
  * @param int $userid update grade of specific user only, 0 means all participants
  */
-function remar_update_grades(stdClass $remar, $userid = 0) {
+function remar_update_grades($remar, $userid=0, $nullifnone=true) {
     global $CFG, $DB;
-    require_once($CFG->libdir.'/gradelib.php');
-
+    if (!function_exists('grade_update')) { //workaround for buggy PHP versions
+        require_once($CFG->libdir.'/gradelib.php');
+    }
+    
     // Populate array of grade objects indexed by userid.
-    $grades = array();
+    $newgrade = new stdClass();
+    $newgrade->userid = $userid;
+    
+    if ($remar->rawgrade != null) {
+        $newgrade->rawgrade = $remar->rawgrade;
+    }
+    else {
+        $newgrade->rawgrade = NULL;
+    }
 
-    grade_update('mod/remar', $remar->course, 'mod', 'remar', $remar->id, 0, $grades);
+    grade_update('mod/remar', $remar->course, 'mod', 'remar', $remar->id, 0, $newgrade);
 }
 
 /* File API */

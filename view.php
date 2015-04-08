@@ -21,12 +21,12 @@
  * if you like, and it can span multiple lines.
  *
  * @package    mod_remar
- * @copyright  2015 Your Name
+ * @copyright  2015 Rener Baffa da Silva <renerbaffa@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 // Replace remar with the name of your module and remove this line.
-
+require_once(dirname(__FILE__) . '/../../config.php');
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 
@@ -72,12 +72,23 @@ $PAGE->set_heading(format_string($course->fullname));
 echo $OUTPUT->header();
 
 // Conditions to show the intro can change to look for own settings or whatever.
+//$bla = $DB->get_records('remar');
+//echo '<p>'.var_dump($bla).'</p>';
+
 if ($remar->intro) {
     echo $OUTPUT->box(format_module_intro('remar', $remar, $cm->id), 'generalbox mod_introbox', 'remarintro');
 }
 
-// Replace the following lines with you own code.
-echo $OUTPUT->heading('Yay! It works!');
+$remar_content = '<p>'.get_string('test_activity_description', 'remar').'</p>';
+$remar_content .= '<form method="get" action="grade.php">';
+$remar_content .= '<input type="hidden" name="id" value="'.$cm->id.'" />';
+$remar_content .= '<input type="hidden" name="userid" value="'.$USER->id.'" />';
+$remar_content .= '<input type="number" name="questions" min="0" max="10" /><br />';
+$remar_content .= '<input type="submit" />';
+$remar_content .= '</form>';
+
+echo $remar_content;
+
 
 // Finish the page.
 echo $OUTPUT->footer();
