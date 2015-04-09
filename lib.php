@@ -296,35 +296,15 @@ function remar_scale_used_anywhere($scaleid) {
  * @param bool $reset reset grades in the gradebook
  * @return void
  */
-function remar_grade_item_update($remar, $grades=NULL) {
+function remar_grade_item_update($remar, $reset=NULL, $grades=NULL) {
     global $CFG;
     if (!function_exists('grade_update')) { //workaround for buggy PHP versions
         require_once($CFG->libdir.'/gradelib.php');
     }
     
-    $params = array('itemname'=>$remar->name);
- 
-    if (!$remar->assessed or $remar->scale == 0) {
-        $params['gradetype'] = GRADE_TYPE_NONE;
- 
-    } else if ($remar->scale > 0) {
-        $params['gradetype'] = GRADE_TYPE_VALUE;
-        $params['grademax']  = $remar->scale;
-        $params['grademin']  = 0;
- 
-    } else if ($remar->scale < 0) {
-        $params['gradetype'] = GRADE_TYPE_SCALE;
-        $params['scaleid']   = -$remar->scale;
-    }
- 
-    if ($grades  === 'reset') {
-        $params['reset'] = true;
-        $grades = NULL;
-    }
- 
-    return grade_update('mod/remar', $remar->course, 'mod', 'remar', $remar->id, 0, $grades, $params);
+    //return grade_update('mod/remar', $remar->course, 'mod', 'remar', $remar->id, 0, $grades, $params);
 
-    /*$item = array();
+    $item = array();
     $item['itemname'] = clean_param($remar->name, PARAM_NOTAGS);
     $item['gradetype'] = GRADE_TYPE_VALUE;
 
@@ -344,7 +324,7 @@ function remar_grade_item_update($remar, $grades=NULL) {
     }
 
     grade_update('mod/remar', $remar->course, 'mod', 'remar',
-            $remar->id, 0, null, $item);*/
+            $remar->id, 0, $grades, $item);
 }
 
 /**
