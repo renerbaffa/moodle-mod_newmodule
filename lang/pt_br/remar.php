@@ -26,8 +26,13 @@ $string['pluginname'] = 'remar';
 /* for settings.php file */
 $string['game1'] = 'Jogo da Forca';
 $string['game1_config'] = 'Configuração do Jogo da Forca';
+$string['game1_help'] = 'help do game 1';
+$string['helpgame1'] = 'help do game 1';
+
 $string['game2'] = 'MathJong';
 $string['game2_config'] = 'Configuração do MathJong';
+$string['game2_help'] = 'help do game 2';
+$string['helpgame2'] = 'help do game 2';
 
 /* for view.php file */
 $string['test_activity_description'] = 'De 10 perguntas, quantas você acertou?';

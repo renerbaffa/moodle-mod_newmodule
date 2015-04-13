@@ -79,15 +79,20 @@ if ($remar->intro) {
     echo $OUTPUT->box(format_module_intro('remar', $remar, $cm->id), 'generalbox mod_introbox', 'remarintro');
 }
 
-$remar_content = '<p>'.get_string('test_activity_description', 'remar').'</p>';
+/*$remar_content = '<p>'.get_string('test_activity_description', 'remar').'</p>';
 $remar_content .= '<form method="get" action="grade.php">';
 $remar_content .= '<input type="hidden" name="id" value="'.$cm->id.'" />';
 $remar_content .= '<input type="hidden" name="userid" value="'.$USER->id.'" />';
 $remar_content .= '<input type="number" name="questions" min="0" max="10" /><br />';
 $remar_content .= '<input type="submit" />';
-$remar_content .= '</form>';
+$remar_content .= '</form>';*/
+/*$remar_content = '<div><iframe src="http://sistemas2.sead.ufscar.br/loa/QuiForca/" height="600" width="900" scrolling=no frameborder="0" /></div>';
 
-echo $remar_content;
+echo $remar_content;*/
+
+echo '<pre>';
+var_dump($_SESSION);
+echo '</pre>';
 
 
 // Finish the page.

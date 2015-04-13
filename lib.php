@@ -370,6 +370,58 @@ function remar_update_grades($remar, $userid=0, $nullifnone=true) {
 }
 
 /* File API */
+/**
+ * Returns an array of game type objects to construct
+ * menu list when adding new game 
+ *
+ */
+function remar_get_types(){
+    global $DB;
+
+    $config = get_config('remar');
+
+    $types = array();
+
+    $type = new object();
+    $type->modclass = MOD_CLASS_ACTIVITY;
+    $type->type = "remar_group_start";
+    $type->typestr = '--'.get_string( 'modulename', 'remar');
+    $types[] = $type;
+
+    if( isset( $config->game1))
+        $hide = ($config->game1 != 0);
+    else
+        $hide = false;
+    if( $hide == false)
+    { 
+        $type = new object();
+        $type->modclass = MOD_CLASS_ACTIVITY;
+        $type->type = "remar&amp;type=game1";
+        $type->typestr = get_string('game1', 'remar');
+        $types[] = $type;
+    }
+
+    if( isset( $config->game2))
+        $hide = ($config->game2 != 0);
+    else
+        $hide = false;
+    if( $hide == false)
+    { 
+        $type = new object();
+        $type->modclass = MOD_CLASS_ACTIVITY;
+        $type->type = "remar&amp;type=game2";
+        $type->typestr = get_string('game2', 'remar');
+        $types[] = $type;
+    }
+    
+    $type = new object();
+    $type->modclass = MOD_CLASS_ACTIVITY;
+    $type->type = "remar_group_end";
+    $type->typestr = '--';
+    $types[] = $type;
+
+    return $types;
+}
 
 /**
  * Returns the lists of all browsable file areas within the given module context
