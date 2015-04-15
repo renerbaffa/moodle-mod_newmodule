@@ -45,9 +45,9 @@ class mod_remar_mod_form extends moodleform_mod {
 
         $mform = $this->_form;
         
-        echo '<pre>';
+        /*echo '<pre>';
         print_r($this);
-        echo '</pre>';
+        echo '</pre>';*/
 
         // Adding the "general" fieldset, where all the common settings are showed.
         $mform->addElement('header', 'general', get_string('general', 'form'));

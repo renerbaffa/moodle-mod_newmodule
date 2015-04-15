@@ -90,9 +90,9 @@ $remar_content .= '</form>';*/
 
 echo $remar_content;*/
 
-echo '<pre>';
+/*echo '<pre>';
 var_dump($_SESSION);
-echo '</pre>';
+echo '</pre>';*/
 
 
 // Finish the page.

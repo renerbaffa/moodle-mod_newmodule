@@ -39,3 +39,10 @@ if (!defined('MOODLE_INTERNAL')) {
  *    return new stdClass();
  *}
  */
+
+function remar_quiforca_update($userid, $cm, $instanceid, $quiforca_data) {
+    echo '<pre>';
+    var_dump($quiforca_data);
+    echo '</pre>';
+    die();
+}
