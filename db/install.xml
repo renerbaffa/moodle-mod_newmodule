@@ -6,48 +6,21 @@
   <TABLES>
     <TABLE NAME="remar" COMMENT="remar main table" NEXT="remar_quiforca">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="name"/>
-        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" PREVIOUS="id" NEXT="course"/>
-        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="name" NEXT="sourcemodule"/>
-        <FIELD NAME="sourcemodule" TYPE="char" LENGTH="50" NOTNULL="false" SEQUENCE="false" PREVIOUS="course" NEXT="timeopen"/>
-        <FIELD NAME="timeopen" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="sourcemodule" NEXT="timeclose"/>
-        <FIELD NAME="timeclose" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="timeopen" NEXT="quizid"/>
-        <FIELD NAME="quizid" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="timeclose" NEXT="glossaryid"/>
-        <FIELD NAME="glossaryid" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="quizid" NEXT="glossarycategoryid"/>
-        <FIELD NAME="glossarycategoryid" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="glossaryid" NEXT="questioncategoryid"/>
-        <FIELD NAME="questioncategoryid" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="glossarycategoryid" NEXT="bookid"/>
-        <FIELD NAME="bookid" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="questioncategoryid" NEXT="gamekind"/>
-        <FIELD NAME="gamekind" TYPE="char" LENGTH="20" NOTNULL="false" SEQUENCE="false" PREVIOUS="bookid" NEXT="param1"/>
-        <FIELD NAME="param1" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="gamekind" NEXT="param2"/>
-        <FIELD NAME="param2" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="param1" NEXT="param3"/>
-        <FIELD NAME="param3" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="param2" NEXT="param4"/>
-        <FIELD NAME="param4" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="param3" NEXT="param5"/>
-        <FIELD NAME="param5" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="param4" NEXT="param6"/>
-        <FIELD NAME="param6" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="param5" NEXT="param7"/>
-        <FIELD NAME="param7" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="param6" NEXT="param8"/>
-        <FIELD NAME="param8" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="param7" NEXT="param9"/>
-        <FIELD NAME="param9" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" PREVIOUS="param8" NEXT="param10"/>
-        <FIELD NAME="param10" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="param9" NEXT="shuffle"/>
-        <FIELD NAME="shuffle" TYPE="int" LENGTH="2" NOTNULL="false" UNSIGNED="false" DEFAULT="1" SEQUENCE="false" PREVIOUS="param10" NEXT="timemodified"/>
-        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="shuffle" NEXT="gameinputid"/>
-        <FIELD NAME="gameinputid" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="timemodified" NEXT="toptext"/>
-        <FIELD NAME="toptext" TYPE="text" NOTNULL="false" SEQUENCE="false" PREVIOUS="gameinputid" NEXT="bottomtext"/>
-        <FIELD NAME="bottomtext" TYPE="text" NOTNULL="false" SEQUENCE="false" PREVIOUS="toptext" NEXT="grademethod"/>
-        <FIELD NAME="grademethod" TYPE="int" LENGTH="2" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="bottomtext" NEXT="grade"/>
-        <FIELD NAME="grade" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="grademethod" NEXT="decimalpoints"/>
-        <FIELD NAME="decimalpoints" TYPE="int" LENGTH="2" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="grade" NEXT="popup"/>
-        <FIELD NAME="popup" TYPE="int" LENGTH="4" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="decimalpoints" NEXT="review"/>
-        <FIELD NAME="review" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="popup" NEXT="attempts"/>
-        <FIELD NAME="attempts" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="review" NEXT="glossaryid2"/>
-        <FIELD NAME="glossaryid2" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="attempts" NEXT="glossarycategoryid2"/>
-        <FIELD NAME="glossarycategoryid2" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="glossaryid2" NEXT="language"/>
-        <FIELD NAME="language" TYPE="char" LENGTH="10" NOTNULL="false" SEQUENCE="false" PREVIOUS="glossarycategoryid2" NEXT="subcategories"/>
-        <FIELD NAME="subcategories" TYPE="int" LENGTH="1" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" PREVIOUS="language" NEXT="maxattempts"/>
-        <FIELD NAME="maxattempts" TYPE="int" LENGTH="3" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="subcategories"/>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="Course remar activity belongs to"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="name field for moodle instances"/>
+        <FIELD NAME="intro" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="General introduction of the remar activity"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Format of the intro field (MOODLE, HTML, MARKDOWN...)"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="grade" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="100" SEQUENCE="false" COMMENT="The maximum grade. Can be negative to indicate the use of a scale."/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
+      <INDEXES>
+        <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
+      </INDEXES>
     </TABLE>
     <TABLE NAME="remar_quiforca" COMMENT="The main table">
       <FIELDS>
