@@ -8,7 +8,7 @@
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
         <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="User id"/>
-        <FIELD NAME="intance_id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="Game instance"/>
+        <FIELD NAME="instance_id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="Game instance"/>
         <FIELD NAME="dica" TYPE="text" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Dica da palavra"/>
         <FIELD NAME="palavra" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Palavra que o jogador deve acertar"/>
         <FIELD NAME="contribuicao" TYPE="text" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Autor da dica e palavra"/>
@@ -20,7 +20,7 @@
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
       <INDEXES>
-        <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
+        <INDEX NAME="instance_id" UNIQUE="false" FIELDS="instance_id"/>
         <INDEX NAME="userid" UNIQUE="false" FIELDS="userid"/>
       </INDEXES>
     </TABLE>
