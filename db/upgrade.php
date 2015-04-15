@@ -68,7 +68,7 @@ function xmldb_remar_upgrade($oldversion) {
      *
      * First example, some fields were added to install.xml on 2007/04/01
      */
-    if ($oldversion < 2007040100) {
+    /*if ($oldversion < 2007040100) {
 
         // Define field course to be added to remar.
         $table = new xmldb_table('remar');
@@ -142,7 +142,7 @@ function xmldb_remar_upgrade($oldversion) {
     }
 
     // Third example, the next day, 2007/04/02 (with the trailing 00),
-    // some actions were performed to install.php related with the module.
+    // some actions were performed to install.php related with the module.*/
     if ($oldversion < 2007040200) {
 
         // Insert code here to perform some actions (same as in install.php).
