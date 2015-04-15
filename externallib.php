@@ -14,7 +14,7 @@ class mod_remar_external extends external_api {
      */
     public static function quiforca_update_parameters() {
         return new external_function_parameters(
-            array('welcomemessage' => new external_value(PARAM_TEXT, 'The welcome message. By default it is "Hello world,"', VALUE_DEFAULT, 'Hello world, '))
+            array('PARAM1' => new external_value(PARAM_TEXT, 'The welcome message. By default it is "Hello world,"', VALUE_DEFAULT, 'Hello world, '))
         );
     }
  
@@ -26,11 +26,11 @@ class mod_remar_external extends external_api {
  
         //Parameters validation
         $params = self::validate_parameters(self::quiforca_update_parameters(),
-                array('welcomemessage' => $PARAM1));
+                array('PARAM1' => $PARAM1));
  
         //Note: don't forget to validate the context and check capabilities
  
-        return $params['welcomemessage'];
+        return $params['PARAM1'];
     }
  
     /**
