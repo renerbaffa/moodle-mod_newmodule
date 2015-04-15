@@ -26,11 +26,11 @@ class mod_remar_external extends external_api {
  
         //Parameters validation
         $params = self::validate_parameters(self::quiforca_update_parameters(),
-                array('PARAM1' => $PARAM1));
+                array('welcomemessage' => $PARAM1));
  
         //Note: don't forget to validate the context and check capabilities
  
-        return $PARAM1;
+        return $params['welcomemessage'];
     }
  
     /**
