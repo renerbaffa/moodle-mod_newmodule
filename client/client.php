@@ -41,7 +41,7 @@ $now = new DateTime();
 $params = array (
     'userid' => 4,
     'cm' => 2,
-    'instanceid' => 2,
+    'instance_id' => 2,
     'dica' => 'Dica',
     'palavra' => 'palavra',
     'contribuicao' => 'Rener Baffa da Silva',
@@ -50,7 +50,6 @@ $params = array (
 );
 
 
-var_dump($params);
 
 ///// XML-RPC CALL
 header('Content-Type: text/plain');

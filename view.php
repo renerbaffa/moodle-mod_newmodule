@@ -94,6 +94,11 @@ echo $remar_content;*/
 var_dump($_SESSION);
 echo '</pre>';*/
 
+$records = $DB->get_records('remar_quiforca');
+echo '<pre>';
+print_r($records);
+echo '</pre>';
+
 
 // Finish the page.
 echo $OUTPUT->footer();

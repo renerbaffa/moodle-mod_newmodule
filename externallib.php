@@ -23,7 +23,7 @@ class mod_remar_external extends external_api {
                     array(
                         'userid' => new external_value(PARAM_INT, 'ID do usuário', VALUE_REQUIRED),
                         'cm' => new external_value(PARAM_INT, 'ID do módulo do curso (course module - cm)', VALUE_REQUIRED),
-                        'instanceid' => new external_value(PARAM_INT, 'ID da instância do game', VALUE_REQUIRED),
+                        'instance_id' => new external_value(PARAM_INT, 'ID da instância do game', VALUE_REQUIRED),
                         'dica' => new external_value(PARAM_TEXT, 'Dica para acertar a palavra', VALUE_REQUIRED),
                         'palavra' => new external_value(PARAM_TEXT, 'Palavra que é a resposta', VALUE_REQUIRED),
                         'contribuicao' => new external_value(PARAM_TEXT, 'Pessoa que contribuiu para a criação desta palavra', VALUE_REQUIRED),
@@ -59,12 +59,19 @@ class mod_remar_external extends external_api {
      * @return string welcome message
      */
     public static function quiforca_update($params) {
+        global $DB;
+        
         //Parameters validation
         $validated_params = self::validate_parameters(self::quiforca_update_parameters(), array('params' => $params));
  
-        //Note: don't forget to validate the context and check capabilities
+        $lastinsertid = $DB->insert_record('remar_quiforca', $params);
  
-        return $params;
+        $ret = array (
+            'code' => $lastinsertid,
+            'description' => 'ID do último item inserido no banco'
+        );
+        
+        return $ret;
     }
  
     /**
@@ -72,18 +79,23 @@ class mod_remar_external extends external_api {
      * @return external_description
      */
     public static function quiforca_update_returns() {
-        return new external_single_structure (
+        /*return new external_single_structure (
             array(
                 'userid' => new external_value(PARAM_INT, 'ID do usuário'),
                 'cm' => new external_value(PARAM_INT, 'ID do módulo do curso (course module - cm)'),
-                'instanceid' => new external_value(PARAM_INT, 'ID da instância do game'),
+                'instance_id' => new external_value(PARAM_INT, 'ID da instância do game'),
                 'dica' => new external_value(PARAM_TEXT, 'Dica para acertar a palavra'),
                 'palavra' => new external_value(PARAM_TEXT, 'Palavra que é a resposta'),
                 'contribuicao' => new external_value(PARAM_TEXT, 'Pessoa que contribuiu para a criação desta palavra'),
                 'letra_escolhida' => new external_value(PARAM_TEXT, 'Armazena a letra escolhida (jogada)'),
                 'timestamp' => new external_value(PARAM_ALPHANUMEXT, 'Timestamp de quando foi feita a jogada')
             )
+        );*/
+        return new external_single_structure(
+            array (
+                'code' => new external_value(PARAM_INT, 'Código do último item inserido no banco ou do erro causado.'),
+                'description' => new external_value(PARAM_TEXT, 'Descrição')
+            )
         );
-        //return new external_value(PARAM_TEXT, 'The welcome message + user first name');
     }
 }
