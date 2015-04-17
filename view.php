@@ -95,9 +95,22 @@ var_dump($_SESSION);
 echo '</pre>';*/
 
 $records = $DB->get_records('remar_quiforca');
-echo '<pre>';
+$table = new html_table();
+$table->head = array('ID', 'ID do Usuário', 'Módulo do Curso', 'Instance_id', 'Dica', 'Palavra', 'Contribuição', 'Letra Escolhida', 'Data');
+
+$data = array();
+
+foreach($records as $record) {
+    array_push($data, $record);
+}
+
+//print_r($data);
+$table->data = $data;
+
+echo html_writer::table($table);
+/*echo '<pre>';
 print_r($records);
-echo '</pre>';
+echo '</pre>';*/
 
 
 // Finish the page.
