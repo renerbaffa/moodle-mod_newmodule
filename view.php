@@ -75,9 +75,9 @@ echo $OUTPUT->header();
 //$bla = $DB->get_records('remar');
 //echo '<p>'.var_dump($bla).'</p>';
 
-if ($remar->intro) {
+/*if ($remar->intro) {
     echo $OUTPUT->box(format_module_intro('remar', $remar, $cm->id), 'generalbox mod_introbox', 'remarintro');
-}
+}*/
 
 /*$remar_content = '<p>'.get_string('test_activity_description', 'remar').'</p>';
 $remar_content .= '<form method="get" action="grade.php">';
@@ -101,7 +101,16 @@ $table->head = array('ID', 'ID do Usuário', 'Módulo do Curso', 'Instance_id', 
 $data = array();
 
 foreach($records as $record) {
-    array_push($data, $record);
+    $organized_array['id'] = $record->id;
+    $organized_array['userid'] = $record->userid;
+    $organized_array['cm'] = $record->pontos;
+    $organized_array['instanece_id'] = $record->instance_id;
+    $organized_array['dica'] = $record->dica;
+    $organized_array['palavra'] = $record->palavra;
+    $organized_array['contribuicao'] = $record->contribuicao;
+    $organized_array['letra_escolhida'] = $record->letra_escolhida;
+    $organized_array['timestamp'] = date("d/m/Y h:m:s", $record->timestamp);
+    array_push($data, $organized_array);
 }
 
 //print_r($data);
